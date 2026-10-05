@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow border-0">
+            <div class="card-body p-4">
+                <h3 class="fw-bold mb-3 text-center">Registrar Nova Venda</h3>
+                <p class="text-muted text-center mb-4">Selecione o cliente, o produto desejado e a quantidade.</p>
+                
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Cliente</label>
+                        <select name="cliente_id" class="form-select" required>
+                            <option value="" disabled selected>Selecione um cliente...</option>
+                            {% for c in clientes %}
+                            <option value="{{ c.id }}">{{ c.nome }} ({{ c.email }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Produto</label>
+                        <select name="produto_id" class="form-select" required>
+                            <option value="" disabled selected>Selecione um produto...</option>
+                            {% for p in produtos %}
+                            <option value="{{ p.id }}">{{ p.nome }} - R$ {{ "%.2f"|format(p.preco) }} (Estoque: {{ p.estoque }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Quantidade</label>
+                        <input type="number" name="quantidade" class="form-control" min="1" value="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 py-2 fw-bold shadow-sm">Finalizar Venda</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
