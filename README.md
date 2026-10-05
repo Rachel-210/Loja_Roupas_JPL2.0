@@ -17,14 +17,20 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 
 * **Tela Inicial / Relatório de Vendas:**  
 <div align="center">
-  <img src="imagens/relatorio.png" width="500">
+  <img src="imagens/relatorio.png.png" width="900">
 </div>
 
 * **Catálogo de Produtos:**  
-  * `![Produtos e Estoque](caminho/para/print_produtos.png)`
+<div align="center">
+  <img src="imagens/produtos.png.png" width="900">
+</div>
+
 
 * **Cadastro de Nova Venda:**  
-  * `![Nova Venda](caminho/para/print_nova_venda.png)`
+<div align="center">
+  <img src="imagens/nova_venda.png.png" width="900">
+</div>
+
 
 ### 📹 2.2. Vídeo de Apresentação
 * **Link da Apresentação:** 
