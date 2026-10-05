@@ -33,7 +33,7 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 
 
 ### 📹 2.2. Vídeo de Apresentação
-* **Link da Apresentação:** 
+* **Link da Apresentação:** https://canva.link/ohhdwz989iwjvzh
 
 ---
 
