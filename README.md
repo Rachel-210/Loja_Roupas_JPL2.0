@@ -16,8 +16,8 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 ### 🖼️ 2.1. Demonstração Visual da Interface
 
 * **Tela Inicial / Relatório de Vendas:**  
-  * <div align="center">
-  <img src="./imagens/relatorio.png" width="500">
+<div align="center">
+  <img src="imagens/relatorio.png" width="500">
 </div>
 
 * **Catálogo de Produtos:**  
