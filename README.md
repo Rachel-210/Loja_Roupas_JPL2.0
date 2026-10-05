@@ -13,6 +13,20 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 
 **O problema que ela resolve:** O sistema automatiza o fluxo operacional da loja, permitindo o cadastro e controle de estoque de produtos em tempo real, o registro seguro de pedidos de clientes e a visualização centralizada de relatórios consolidados de vendas, garantindo integridade transacional através de regras implementadas diretamente no banco de dados.
 
+### 🖼️ 2.1. Demonstração Visual da Interface
+
+* **Tela Inicial / Relatório de Vendas:**  
+  * `![Relatório de Vendas](caminho/para/print_relatorio.png)`
+
+* **Catálogo de Produtos:**  
+  * `![Produtos e Estoque](caminho/para/print_produtos.png)`
+
+* **Cadastro de Nova Venda:**  
+  * `![Nova Venda](caminho/para/print_nova_venda.png)`
+
+### 📹 2.2. Vídeo de Apresentação
+* **Link da Apresentação:** 
+
 ---
 
 ## 🛠️ 3. Tecnologias Utilizadas
