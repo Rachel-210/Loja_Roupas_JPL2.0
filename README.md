@@ -145,3 +145,12 @@ Siga os passos abaixo para rodar a aplicação em sua máquina local:
 2. **Instalar as Dependências:** Abra o terminal na pasta do projeto e instale as bibliotecas necessárias listadas no projeto (`Flask` e `psycopg2-binary`):
    ```bash
    pip install -r requirements.txt
+3. Execute a Aplicação:
+   ```bash
+   python app.py
+4. Acessar no Navegador: Abra o seu navegador web e acesse o endereço local gerado pelo Flask.
+
+> ⚠️ **Nota de Execução (Estrutura de Pastas):** Caso o seu terminal aponte que o arquivo `app.py` não foi encontrado na raiz ao rodar `python app.py`, certifique-se de acessar a pasta de código-fonte antes de executar, ou aponte o caminho correto com:
+> ```bash
+> cd src
+> python app.py
