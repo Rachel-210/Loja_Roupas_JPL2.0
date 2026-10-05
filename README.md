@@ -56,6 +56,8 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 * 🧾 **`vendas`**: Registra o cabeçalho de cada compra efetuada, ligando o cliente comprador, a data/hora e o valor total da transação.
 * 🛒 **`itens_venda`**: Detalha os produtos específicos adquiridos em cada venda, guardando a quantidade exata e o preço unitário praticado no momento da compra.
 
+> 💡 **Nota sobre o Escopo (Clientes):** Para manter o foco principal da aplicação na segurança transacional e na integridade do estoque, optei por não desenvolver uma tela dedicada ao cadastro de clientes na interface web. Os clientes são pré-cadastrados diretamente no banco de dados e selecionados via componente de listagem (`select`) no momento do registro de uma nova venda.
+
 ---
 
 ## 🧠 5. Recursos Avançados do Banco e suas Aplicações no Sistema
