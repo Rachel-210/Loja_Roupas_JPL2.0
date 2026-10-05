@@ -18,7 +18,7 @@ BEGIN
         RAISE EXCEPTION 'Estoque insuficiente para o produto. Disponível: %', v_estoque_atual;
     END IF;
 
-    -- Calcula o valor total usando a nossa Function
+    -- Calcula o valor total usando a Function
     v_valor_total := fn_calcular_subtotal(p_quantidade, v_preco);
 
     -- Insere a venda
