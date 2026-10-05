@@ -13,6 +13,20 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 
 **O problema que ela resolve:** O sistema automatiza o fluxo operacional da loja, permitindo o cadastro e controle de estoque de produtos em tempo real, o registro seguro de pedidos de clientes e a visualização centralizada de relatórios consolidados de vendas, garantindo integridade transacional através de regras implementadas diretamente no banco de dados.
 
+### 🖼️ 2.1. Demonstração Visual da Interface
+
+* **Tela Inicial / Relatório de Vendas:**  
+  * `![Relatório de Vendas](caminho/para/print_relatorio.png)`
+
+* **Catálogo de Produtos:**  
+  * `![Produtos e Estoque](caminho/para/print_produtos.png)`
+
+* **Cadastro de Nova Venda:**  
+  * `![Nova Venda](caminho/para/print_nova_venda.png)`
+
+### 📹 2.2. Vídeo de Apresentação
+* **Link da Apresentação:** 
+
 ---
 
 ## 🛠️ 3. Tecnologias Utilizadas
@@ -41,14 +55,75 @@ Esta aplicação consiste em um sistema web full-stack desenvolvido para o geren
 * **👁️ View (`vw_relatorio_vendas`)**
   * **Onde é utilizada:** Na página inicial de relatórios do sistema (`/`).
   * **Para que serve:** Realiza junções (`JOINs`) automáticas entre as tabelas de vendas, clientes, itens e produtos no nível do banco. Sua função é alimentar diretamente a tabela da interface web exibindo de forma clara, consolidada e legível cada venda realizada, detalhando o cliente, o produto comprado, a quantidade e o valor total sem sobrecarregar a aplicação Python com regras complexas de consulta.
+  * **Estrutura no Banco:**
+    ```sql
+    CREATE OR REPLACE VIEW vw_relatorio_vendas AS
+    SELECT 
+        v.id AS venda_id,
+        c.nome AS cliente_nome,
+        c.email AS cliente_email,
+        p.nome AS produto,
+        iv.quantidade AS quantidade,
+        v.data_venda,
+        v.valor_total
+    FROM vendas v
+    JOIN clientes c ON v.cliente_id = c.id
+    JOIN itens_venda iv ON v.id = iv.venda_id
+    JOIN produtos p ON iv.produto_id = p.id;
+    ```
 
 * **📐 Function (`fn_calcular_subtotal`)**
   * **Onde é utilizada:** Nos bastidores do banco de dados, acionada internamente durante a execução da procedure de venda.
   * **Para que serve:** Encapsula a lógica matemática central responsável por calcular o valor parcial (subtotal) de cada item comprado, multiplicando a quantidade informada pelo preço unitário do produto.
+  * **Estrutura no Banco:**
+    ```sql
+    CREATE OR REPLACE FUNCTION fn_calcular_subtotal(p_quantidade INT, p_preco NUMERIC)
+    RETURNS NUMERIC AS $$
+    BEGIN
+        RETURN p_quantidade * p_preco;
+    END;
+    $$ LANGUAGE plpgsql;
+    ```
 
 * **🛡️ Procedure (`pr_realizar_venda`)**
   * **Onde é utilizada:** Na rota de cadastro de nova venda (`/venda/nova`), acionada quando o usuário preenche o formulário e clica em "Finalizar Venda".
   * **Para que serve:** É o coração transacional do sistema. Ela valida com segurança se há estoque suficiente para atender o pedido antes de prosseguir (lançando uma exceção e bloqueando a operação caso o estoque seja menor que a quantidade desejada). Caso haja disponibilidade, ela calcula o valor total utilizando a function, insere os registros nas tabelas de vendas e itens, e executa a **baixa automática e imediata no estoque** do produto correspondente.
+  * **Estrutura no Banco:**
+    ```sql
+    CREATE OR REPLACE PROCEDURE pr_realizar_venda(
+        p_cliente_id INT,
+        p_produto_id INT,
+        p_quantidade INT
+    )
+    AS $$
+    DECLARE
+        v_preco NUMERIC;
+        v_estoque_atual INT;
+        v_venda_id INT;
+        v_valor_total NUMERIC;
+    BEGIN
+        SELECT preco, estoque INTO v_preco, v_estoque_atual
+        FROM produtos WHERE id = p_produto_id;
+
+        IF v_estoque_atual < p_quantidade THEN
+            RAISE EXCEPTION 'Estoque insuficiente para o produto. Disponível: %', v_estoque_atual;
+        END IF;
+
+        v_valor_total := fn_calcular_subtotal(p_quantidade, v_preco);
+
+        INSERT INTO vendas (cliente_id, valor_total) 
+        VALUES (p_cliente_id, v_valor_total)
+        RETURNING id INTO v_venda_id;
+
+        INSERT INTO itens_venda (venda_id, produto_id, quantidade, preco_unitario)
+        VALUES (v_venda_id, p_produto_id, p_quantidade, v_preco);
+
+        UPDATE produtos 
+        SET estoque = estoque - p_quantidade 
+        WHERE id = p_produto_id;
+    END;
+    $$ LANGUAGE plpgsql;
+    ```
 
 ---
 
