@@ -2,9 +2,9 @@
 
 
 ## 📋 1. Identificação
-* **👤 Nome dos Integrantes:** Lia Rachel Ferreira de Sousa
-* **📚 Nome da Disciplina:** Banco de Dados
-* **👨‍🏫 Nome do Professor:**  Anderson Soares Costa
+* **👤 Aluna:** Lia Rachel Ferreira de Sousa
+* **📚 Disciplina:** Projeto de Banco de Dados
+* **👨‍🏫 Professor:**  Anderson Soares Costa
 
 ---
 
